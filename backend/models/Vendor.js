@@ -19,7 +19,7 @@ const vendorSchema = new mongoose.Schema({
           //referece with firm table
           ref : 'Firm'
         }
-    ]
+    ],
 })
 
 const Vendor = mongoose.model('Vendor',vendorSchema);
