@@ -42,8 +42,9 @@ const getProductByFirm = async(req,res)=>{
         if(!firm){
             return res.status(404).json({error:"No firm found"});
         }
+        const restaurantName = firm.firmName;
         const products = await Product.find({firm: firmId});
-        res.status(200).json({products});
+        res.status(200).json({ restaurantName,products});
     }catch(error){
         console.error(error);
         res.send(500).json({message:"Internal Server Error"});
