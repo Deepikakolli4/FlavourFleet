@@ -29,12 +29,25 @@ const addProduct = async(req,res)=>{
        firm.product.push(savedProduct);
        await firm.save();
        return res.status(200).json({message:"Added Product Successfully"});
-
-
    }catch(error){
        console.error(error);
        res.status(500).json({error:"Internal Server Error"});
    }
 }
 
-module.exports = {addProduct:[upload.single('image'),addProduct]};
+const getProductByFirm = async(req,res)=>{
+    try{
+        const firmId = req.params.firmId;
+        const firm = await Firm.findById(firmId);
+        if(!firm){
+            return res.status(404).json({error:"No firm found"});
+        }
+        const products = await Product.find({firm: firmId});
+        res.status(200).json(products);
+    }catch(error){
+        console.error(error);
+        res.sesnd(500).json({message:"Internal Server Error"});
+    }
+}
+
+module.exports = {addProduct:[upload.single('image'),addProduct],getProductByFirm};
