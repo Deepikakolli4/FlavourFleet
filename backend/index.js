@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const vendorRoutes = require('./routes/vendorRoutes');
 const bodyParser = require('body-parser');
 const firmRoutes = require('./routes/firmRoutes');
-const productRoutes = requitre('./routes/productRoutes');
+const productRoutes = require('./routes/productRoutes');
 dotEnv.config();
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>{

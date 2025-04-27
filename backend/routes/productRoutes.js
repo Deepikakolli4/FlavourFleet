@@ -3,4 +3,4 @@ const productController = require('../controllers/productController');
 const router = express.Router();
 
 router.post('/addproduct/:firmId',productController.addProduct);
-modules.exports = router();
+module.exports = router;
