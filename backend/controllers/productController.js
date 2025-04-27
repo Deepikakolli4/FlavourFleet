@@ -17,7 +17,7 @@ const addProduct = async(req,res)=>{
        const image = req.file ? req.file.filename : undefined;
        //based on firm id we are adding the products 
        const firmId = req.params.firmId;
-       const firm = await Firm.findById(firm);
+       const firm = await Firm.findById(firmId);
        if(!firm){
         return res.status(404).json({error:"No firm found"});
        }
@@ -25,8 +25,8 @@ const addProduct = async(req,res)=>{
         productName,price,category,bestSeller,description,image,firm:firm._id
        })
 
-       const savedProduct = await Product.save();
-       firm.products.push(savedProduct);
+       const savedProduct = await product.save();
+       firm.product.push(savedProduct);
        await firm.save();
        return res.status(200).json({message:"Added Product Successfully"});
 
