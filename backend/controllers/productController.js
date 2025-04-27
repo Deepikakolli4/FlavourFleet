@@ -1,4 +1,5 @@
-const product = require('../models/Product');
+const Product = require('../models/Product');
+const Firm = require('../models/Firm');
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: function(req,file,cb){
@@ -13,9 +14,27 @@ const upload = multer({storage: storage})
 const addProduct = async(req,res)=>{
    try{
        const {productName,price,category,bestSeller,description} = req.body;
-        const image = req.file ? req.file.filename : undefined;
-        
-   }catch(error){
+       const image = req.file ? req.file.filename : undefined;
+       //based on firm id we are adding the products 
+       const firmId = req.params.firmId;
+       const firm = await Firm.findById(firm);
+       if(!firm){
+        return res.status(404).json({error:"No firm found"});
+       }
+       const product = new Product({
+        productName,price,category,bestSeller,description,image,firm:firm._id
+       })
 
+       const savedProduct = await Product.save();
+       firm.products.push(savedProduct);
+       await firm.save();
+       return res.status(200).json({message:"Added Product Successfully"});
+
+
+   }catch(error){
+       console.error(error);
+       res.status(500).json({error:"Internal Server Error"});
    }
 }
+
+module.exports = {addProduct:[upload.single('image'),addProduct]};
