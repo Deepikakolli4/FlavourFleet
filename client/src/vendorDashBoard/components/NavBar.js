@@ -1,8 +1,17 @@
 import React from 'react'
-import LandingPage from '../pages/LandingPage'
+import './NavBar.css'
 const NavBar = () => {
   return (
-    <div>NavBar</div>
+    <div className='navSection'>
+        <div className='company'>
+         Vendor Dashboard
+        </div>
+        <div className='userAuth'>
+          <span>Login </span>
+          <span>/</span>
+          <span>Register</span>
+        </div>
+    </div>
   )
 }
 
