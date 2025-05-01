@@ -50,5 +50,18 @@ const getProductByFirm = async(req,res)=>{
         res.send(500).json({message:"Internal Server Error"});
     }
 }
+const deleteProductById = async(req,res)=>{
+    try{
+        const productId = req.params.productId;
+        const deleteProduct = await Product.findByIdAndDelete(productId);
+        if(!deleteProduct){
+            return res.status(404).json({error:"No Product Found"});
+        }
 
-module.exports = {addProduct:[upload.single('image'),addProduct],getProductByFirm};
+    }catch(error){
+        console.error(error);
+        res.send(500).json({message:"Internal Server Error"});
+    }
+}
+
+module.exports = {addProduct:[upload.single('image'),addProduct],getProductByFirm,deleteProductById};
