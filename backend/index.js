@@ -24,7 +24,7 @@ app.use('/uploads',express.static('uploads'));
 app.get('/',(req,res)=>{
     res.send("<h1>Welcome to FlavourFeet</h1>");
  })
-const PORT = 8000;
+const PORT = process.env.PORT;
 app.listen(PORT,()=>{
     console.log(`server is running at ${PORT}`);
 })
