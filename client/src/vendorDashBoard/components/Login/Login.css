@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Login Section */
+.loginSection {
+  margin: 15px;
+  margin-left: 180px;
+  padding: 20px;
+  background-color: #f8fafc; /* Matches navbar and sidebar background */
+  border: 4px solid #1a2e44; /* Navy blue, matches sidebar and navbar */
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Matches sidebar and navbar */
+  width: 800px; /* Fixed width */
+  min-height: 300px; /* Ensures visibility */
+  animation: slideInLeft 1s ease forwards; /* Matches sidebar animation */
+}
+
+/* Heading */
+.loginSection h3 {
+  text-align: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a2e44; 
+  margin-bottom: 45px;
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+  opacity: 0;
+  animation: slideInLeft 1s ease forwards;
+  animation-delay: 0.2s; 
+}
+
+/* Login GIF */
+.loginSection .loginGif {
+  width: 40px; /* Moderate size to complement heading */
+  height: 40px;
+  object-fit: cover; /* Ensures GIF is properly scaled */
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 0.4s; /* Slightly delayed after heading */
+}
+
+/* Form Styling */
+.loginSection form {
+  margin: 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 66px; 
+}
+
+.loginSection input {
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  justify-content: center;
+  font-size: 16px;
+  padding: 10px 12px;
+  border: 3px solid #bdc3cc; 
+  border-radius: 4px;
+  background-color: #ffffff;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.loginSection input:focus {
+  outline: none;
+  border-color: green; 
+  box-shadow: 0 0 5px rgba(212, 160, 23, 0.3); 
+}
+
+/* Placeholder Styling */
+.loginSection input::placeholder {
+  color: #a0aec0; 
+  opacity: 1;
+  font-weight: 400;
+}
+/* Submit Button */
+.loginSection .submit-btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff; /* White text */
+    background-color: #1a2e44; /* Navy blue, matches border */
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    width: fit-content; /* Adjusts to content size */
+    margin: 35px auto; /* Reinforces horizontal centering */
+    transition:
+      background-color 0.3s ease,
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+  
+  .loginSection .submit-btn:hover {
+    background-color: green; 
+    transform: translateY(-2px); /* Slight lift for dynamic effect */
+    box-shadow: 0 2px 5px rgba(212, 160, 23, 0.3); /* Subtle shadow on hover */
+  }
+.collection{
+    display: flex;
+}
+/* Animations */
+@keyframes slideInLeft {
+  0% { transform: translateX(-40px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
