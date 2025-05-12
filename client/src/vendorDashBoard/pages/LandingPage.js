@@ -2,6 +2,7 @@ import React from 'react'
 import NavBar from '../components/NavBar/NavBar'
 import SideBar from '../components/SideBar/SideBar'
 import Login from '../components/Login/Login'
+import Register from '../components/Register/Register'
 const LandingPage = () => {
   return (
    <>
@@ -9,7 +10,8 @@ const LandingPage = () => {
     <NavBar/>
     <div className='collection'>
     <SideBar/>
-    <Login />
+    {/* <Login /> */}
+    <Register />
     </div>
    </section>
    </>
