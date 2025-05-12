@@ -7,7 +7,28 @@ const AddFirm = () => {
      <form>
           <input type='text' placeholder='Enter FirmName'/>
           <input type='text' placeholder='Enter Area'/>
-          <input type='text' placeholder='Enter Region'/>
+          <div className='check-input'>
+            <label>Region</label>
+            <div className='checkBoxContainer'>
+              <label>SouthIndian</label>
+              <input type="checkbox" value="SouthIndian" required/>
+              <label>NorthIndian</label>
+              <input type="checkbox" value="NorthIndian"/>
+              <label>Chinese</label>
+              <input type="checkbox" value="Chinese"/>
+              <label>Bakery</label>
+              <input type="checkbox" value="Bakery"/>
+            </div>
+          </div>
+          <div className='check-input'>
+            <label>Category</label>
+            <div className='checkBoxContainer'>
+              <label>Veg</label>
+              <input type="checkbox" value="Veg" required/>
+              <label>Non-Veg</label>
+              <input type="checkbox" value="Non-Veg"/>
+            </div>
+          </div>
           <input type='text' placeholder='Enter Offer'/>
           <input type='file' placeholder='Enter Image'/>
       </form>
