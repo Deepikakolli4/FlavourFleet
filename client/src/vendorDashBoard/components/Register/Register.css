@@ -1,60 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-/* Login Section */
 .registerSection {
   margin: 15px;
   margin-left: 180px;
   padding: 20px;
-  background-color: #f8fafc; /* Matches navbar and sidebar background */
-  border: 4px solid #1a2e44; /* Navy blue, matches sidebar and navbar */
+  background-color: #f8fafc;
+  border: 4px solid #1a2e44;
   border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Matches sidebar and navbar */
-  width: 800px; /* Fixed width */
-  min-height: 300px; /* Ensures visibility */
-  animation: slideInLeft 1s ease forwards; /* Matches sidebar animation */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 800px;
+  min-height: 300px;
+  animation: slideInLeft 1s ease forwards;
 }
 
-/* Heading */
 .registerSection h3 {
   text-align: center;
   justify-content: center;
   font-size: 24px;
   font-weight: 600;
-  color: #1a2e44; 
+  color: #1a2e44;
   margin-bottom: 45px;
   display: flex;
   align-items: center;
-  gap: 10px; 
+  gap: 10px;
   opacity: 0;
   animation: slideInLeft 1s ease forwards;
-  animation-delay: 0.2s; 
+  animation-delay: 0.2s;
 }
 
-/* Login GIF */
-.registerSection .regsiterGif {
-  width: 40px; /* Moderate size to complement heading */
+.registerSection .registerGif {
+  width: 40px;
   height: 40px;
-  object-fit: cover; /* Ensures GIF is properly scaled */
+  object-fit: cover;
   opacity: 0;
   animation: fadeIn 1s ease forwards;
-  animation-delay: 0.4s; /* Slightly delayed after heading */
+  animation-delay: 0.4s;
 }
 
-/* Form Styling */
 .registerSection form {
   margin: 7px;
   display: flex;
   flex-direction: column;
-  gap: 66px; 
+  gap: 40px;
+}
+
+.registerSection label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a2e44;
+  text-align: left;
 }
 
 .registerSection input {
   font-family: 'Poppins', sans-serif;
   text-align: center;
-  justify-content: center;
   font-size: 16px;
   padding: 10px 12px;
-  border: 3px solid #bdc3cc; 
+  border: 3px solid #bdc3cc;
   border-radius: 4px;
   background-color: #ffffff;
   transition:
@@ -64,44 +67,64 @@
 
 .registerSection input:focus {
   outline: none;
-  border-color: green; 
-  box-shadow: 0 0 5px rgba(212, 160, 23, 0.3); 
+  border-color: green;
+  box-shadow: 0 0 5px rgba(212, 160, 23, 0.3);
 }
 
-/* Placeholder Styling */
 .registerSection input::placeholder {
-  color: #a0aec0; 
+  color: #a0aec0;
   opacity: 1;
   font-weight: 400;
 }
-/* Submit Button */
-.registerSection .submit-btn {
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: #ffffff; /* White text */
-    background-color: #1a2e44; /* Navy blue, matches border */
-    padding: 10px 20px;
-    border-radius: 4px;
-    text-align: center;
-    cursor: pointer;
-    width: fit-content; /* Adjusts to content size */
-    margin: 35px auto; /* Reinforces horizontal centering */
-    transition:
-      background-color 0.3s ease,
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
-  }
-  
-  .registerSection .submit-btn:hover {
-    background-color: green; 
-    transform: translateY(-2px); /* Slight lift for dynamic effect */
-    box-shadow: 0 2px 5px rgba(212, 160, 23, 0.3); /* Subtle shadow on hover */
-  }
-.collection{
-    display: flex;
+
+.registerSection .error {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #e53e3e;
+  text-align: center;
+  margin-top: -20px;
 }
-/* Animations */
+
+.registerSection .submit-btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.registerSection .submit-btn {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #1a2e44;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  width: fit-content;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.registerSection .submit-btn:hover {
+  background-color: green;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(212, 160, 23, 0.3);
+}
+
+.registerSection .submit-btn:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.collection {
+  display: flex;
+}
+
 @keyframes slideInLeft {
   0% { transform: translateX(-40px); opacity: 0; }
   100% { transform: translateX(0); opacity: 1; }
@@ -110,4 +133,94 @@
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .registerSection {
+    margin: 10px;
+    margin-left: 20px;
+    padding: 15px;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .registerSection h3 {
+    font-size: 20px;
+    margin-bottom: 30px;
+    gap: 8px;
+  }
+
+  .registerSection .registerGif {
+    width: 32px;
+    height: 32px;
+  }
+
+  .registerSection form {
+    gap: 30px;
+  }
+
+  .registerSection label {
+    font-size: 14px;
+  }
+
+  .registerSection input {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  .registerSection .error {
+    font-size: 12px;
+    margin-top: -15px;
+  }
+
+  .registerSection .submit-btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .registerSection {
+    margin: 5px;
+    margin-left: 10px;
+    padding: 10px;
+    max-width: 100%;
+    border-width: 2px;
+  }
+
+  .registerSection h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    gap: 6px;
+  }
+
+  .registerSection .registerGif {
+    width: 28px;
+    height: 28px;
+  }
+
+  .registerSection form {
+    margin: 5px;
+    gap: 20px;
+  }
+
+  .registerSection label {
+    font-size: 12px;
+  }
+
+  .registerSection input {
+    font-size: 12px;
+    padding: 6px 8px;
+    border-width: 2px;
+  }
+
+  .registerSection .error {
+    font-size: 10px;
+    margin-top: -10px;
+  }
+
+  .registerSection .submit-btn {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
 }
