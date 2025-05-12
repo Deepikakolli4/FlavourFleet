@@ -1,15 +1,15 @@
 import React from 'react'
 import './NavBar.css'
-const NavBar = () => {
+const NavBar = ({showLoginHandler , showRegisterHandler}) => {
   return (
     <div className='navSection'>
         <div className='company'>
          Vendor Dashboard
         </div>
         <div className='userAuth'>
-          <span>Login </span>
+          <span onClick={showLoginHandler}>Login </span>
           <span>/</span>
-          <span>Register</span>
+          <span onClick={showRegisterHandler}>Register</span>
         </div>
     </div>
   )
