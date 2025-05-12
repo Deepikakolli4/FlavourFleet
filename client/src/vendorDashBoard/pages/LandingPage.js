@@ -4,6 +4,7 @@ import SideBar from '../components/SideBar/SideBar'
 import Login from '../components/Login/Login'
 import Register from '../components/Register/Register'
 import AddFirm from '../components/AddFirm/AddFirm'
+import AddProduct from '../components/AddProduct/AddProduct'
 const LandingPage = () => {
   return (
    <>
@@ -13,7 +14,8 @@ const LandingPage = () => {
     <SideBar/>
     {/* <Login /> */}
     {/* <Register /> */}
-    <AddFirm />
+    {/* <AddFirm /> */}
+    <AddProduct />
     </div>
    </section>
    </>

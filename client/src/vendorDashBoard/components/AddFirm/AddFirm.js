@@ -9,7 +9,7 @@ const AddFirm = () => {
           <input type='text' placeholder='Enter Area'/>
           <input type='text' placeholder='Enter Region'/>
           <input type='text' placeholder='Enter Offer'/>
-          <input type='text' placeholder='Enter Image'/>
+          <input type='file' placeholder='Enter Image'/>
       </form>
      <div className='submit-btn'>
       Submit
