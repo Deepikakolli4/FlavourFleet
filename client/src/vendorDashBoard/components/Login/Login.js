@@ -18,22 +18,22 @@ const Login = () => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, email, password }),
+            body: JSON.stringify({ email, password }),
           });
     
           const data = await response.json();
           if (response.ok) {
             // console.log('Success:', data);
-            alert('Vendor registered successfully!');
-            setUsername('');
+            alert('Vendor login success!');
+            localStorage.setItem('loginToken',data.token);//used to assign name to the key in the local storage and token from the backend is stored in the frontend
             setEmail('');
             setPassword('');
           } else {
             console.error('API error:', data, 'Status:', response.status);
-            setError(data.message || `Registration failed: ${response.status} ${response.statusText}`);
+            setError(data.message || `Login failed: ${response.status} ${response.statusText}`);
           }
         } catch (err) {
-          console.error('Registration error:', err, err.message);
+          console.error('Login error:', err, err.message);
           setError(`An error occurred: ${err.message}. Please check your network or try again.`);
         } finally {
           setLoading(false);
@@ -64,6 +64,7 @@ const Login = () => {
           placeholder="Enter Password"
           required
         />
+        {error && <p className="error">{error}</p>}
         <div className="submit-btn-container">
           <button className="submit-btn" type="submit" disabled={loading}>
             {loading ? 'Verifying...' : 'Login'}
