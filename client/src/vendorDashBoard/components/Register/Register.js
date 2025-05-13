@@ -25,7 +25,7 @@ const Register = () => {
 
       const data = await response.json();
       if (response.ok) {
-        console.log('Success:', data);
+        // console.log('Success:', data);
         alert('Vendor registered successfully!');
         setUsername('');
         setEmail('');
