@@ -2,7 +2,7 @@ import React , {useState} from 'react'
 import { API_URL } from '../../utilities/ApiPath';
 import './Login.css'
 import loginGif from './login.gif';
-const Login = () => {
+const Login = ({showWelcomeHandler}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -24,10 +24,11 @@ const Login = () => {
           const data = await response.json();
           if (response.ok) {
             // console.log('Success:', data);
-            alert('Vendor login success!');
             localStorage.setItem('loginToken',data.token);//used to assign name to the key in the local storage and token from the backend is stored in the frontend
             setEmail('');
             setPassword('');
+            alert('Vendor login success!');
+            showWelcomeHandler();
           } else {
             console.error('API error:', data, 'Status:', response.status);
             setError(data.message || `Login failed: ${response.status} ${response.statusText}`);

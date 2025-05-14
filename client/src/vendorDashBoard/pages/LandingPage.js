@@ -5,34 +5,47 @@ import Login from '../components/Login/Login'
 import Register from '../components/Register/Register'
 import AddFirm from '../components/AddFirm/AddFirm'
 import AddProduct from '../components/AddProduct/AddProduct'
+import Welcome from '../components/Welcome/Welcome'
 const LandingPage = () => {
   const[showLogin,setShowLogin] = useState(false);
   const[showRegister,setShowRegister] = useState(false);
   const[showFirm,setShowFirm] = useState(false);
   const[showProduct,setShowProduct] = useState(false);
+  const[showWelcome,setshowWelcome] = useState(false);
   const showLoginHandler = () => {
        setShowLogin(true);
        setShowRegister(false);
        setShowFirm(false);
        setShowProduct(false);
+       setshowWelcome(false);
   }
   const showRegisterHandler = () => {
     setShowRegister(true);
     setShowLogin(false);
     setShowFirm(false);
     setShowProduct(false);
+    setshowWelcome(false);
   }
   const showFirmHandler = () => {
     setShowRegister(false);
     setShowLogin(false);
     setShowFirm(true);
     setShowProduct(false);
+    setshowWelcome(false);
   }
   const showProductHandler = () => {
     setShowRegister(false);
     setShowLogin(false);
     setShowFirm(false);
     setShowProduct(true);
+    setshowWelcome(false);
+  }
+  const showWelcomeHandler = () => {
+    setShowRegister(false);
+    setShowLogin(false);
+    setShowFirm(false);
+    setShowProduct(false);
+    setshowWelcome(true);
   }
   return (
    <>
@@ -40,10 +53,11 @@ const LandingPage = () => {
     <NavBar showLoginHandler = {showLoginHandler} showRegisterHandler = {showRegisterHandler}/>
     <div className='collection'>
     <SideBar showFirmHandler = {showFirmHandler} showProductHandler = {showProductHandler}/>
-    {showLogin && <Login />}
-    {showRegister && <Register />}
+    {showLogin && <Login showWelcomeHandler={showWelcomeHandler}/>}
+    {showRegister && <Register  showLoginHandler = {showLoginHandler}/>}
     {showFirm && <AddFirm/>}
     {showProduct && <AddProduct />}
+    {showWelcome && <Welcome/> }
     </div>
    </section>
    </>

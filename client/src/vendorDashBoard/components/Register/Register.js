@@ -3,7 +3,7 @@ import { API_URL } from '../../utilities/ApiPath';
 import registerGif from './register.gif';
 import './Register.css';
 
-const Register = () => {
+const Register = ({showLoginHandler}) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,10 +26,11 @@ const Register = () => {
       const data = await response.json();
       if (response.ok) {
         // console.log('Success:', data);
-        alert('Vendor registered successfully!');
         setUsername('');
         setEmail('');
         setPassword('');
+        alert('Vendor registered successfully!');
+        showLoginHandler()
       } else {
         console.error('API error:', data, 'Status:', response.status);
         setError(data.message || `Registration failed: ${response.status} ${response.statusText}`);
