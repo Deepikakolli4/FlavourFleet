@@ -11,10 +11,12 @@ const AddProduct = () => {
               <input type='text' placeholder='Enter BestSeller'/>
               <input type='text' placeholder='Enter Description'/>
               <input type='file' placeholder='Enter Image'/>
-          </form>
-         <div className='submit-btn'>
-          Submit
-          </div>
+              <div className="submit-btn-container">
+              <button className="submit-btn" type="submit">
+               Submit
+               </button>
+               </div>
+        </form>
         </div>
       )
 }

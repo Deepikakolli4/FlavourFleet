@@ -1,200 +1,166 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-/* Login Section */
+/* Firm Section */
 .firmSection {
-  margin: 15px;
-  margin-left: 180px;
+  margin: 15px auto; /* Center horizontally */
   padding: 20px;
-  background-color: #f8fafc; /* Matches navbar and sidebar background */
-  border: 4px solid #1a2e44; /* Navy blue, matches sidebar and navbar */
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Matches sidebar and navbar */
-  width: 800px; /* Fixed width */
-  min-height: 300px; /* Ensures visibility */
-  animation: slideInLeft 1s ease forwards; /* Matches sidebar animation */
+  background-color: #f8fafc;
+  border: 4px solid #1a2e44;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 90%; /* Responsive width */
+  max-width: 800px; /* Max width for larger screens */
+  min-height: 300px;
+  animation: slideInLeft 1s ease forwards;
 }
 
 /* Heading */
 .firmSection h3 {
   text-align: center;
-  justify-content: center;
   font-size: 24px;
   font-weight: 600;
-  color: #1a2e44; 
-  margin-bottom: 45px;
+  color: #1a2e44;
+  margin-bottom: 30px;
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 10px; 
   opacity: 0;
   animation: slideInLeft 1s ease forwards;
-  animation-delay: 0.2s; 
-}
-
-/* Login GIF */
-.firmSection .regsiterGif {
-  width: 40px; /* Moderate size to complement heading */
-  height: 40px;
-  object-fit: cover; /* Ensures GIF is properly scaled */
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
-  animation-delay: 0.4s; /* Slightly delayed after heading */
+  animation-delay: 0.2s;
 }
 
 /* Form Styling */
 .firmSection form {
-  margin: 7px;
   display: flex;
   flex-direction: column;
-  gap: 66px; 
+  gap: 20px; /* Reduced gap for compact layout */
+  margin: 0 10px;
 }
 
 .firmSection input {
   font-family: 'Poppins', sans-serif;
-  text-align: center;
-  justify-content: center;
   font-size: 16px;
   padding: 10px 12px;
-  border: 3px solid #bdc3cc; 
+  border: 2px solid #bdc3cc;
   border-radius: 4px;
   background-color: #ffffff;
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%; /* Full width for inputs */
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .firmSection input:focus {
   outline: none;
-  border-color: green; 
-  box-shadow: 0 0 5px rgba(212, 160, 23, 0.3); 
+  border-color: green;
+  box-shadow: 0 0 5px rgba(212, 160, 23, 0.3);
+}
+
+/* File Input Styling */
+.firmSection input[type='file'] {
+  padding: 8px; /* Slightly different padding for file input */
+  border: 2px solid #bdc3cc;
+  border-radius: 4px;
+  background-color: #ffffff;
+  text-align: left; /* Align file input text to left for readability */
 }
 
 /* Placeholder Styling */
 .firmSection input::placeholder {
-  color: #a0aec0; 
+  color: #a0aec0;
   opacity: 1;
   font-weight: 400;
 }
+
+/* Submit Button Container */
+.firmSection .submit-btn-container {
+  display: flex;
+  justify-content: center;
+}
+
 /* Submit Button */
 .firmSection .submit-btn {
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: #ffffff; /* White text */
-    background-color: #1a2e44; /* Navy blue, matches border */
-    padding: 10px 20px;
-    border-radius: 4px;
-    text-align: center;
-    cursor: pointer;
-    width: fit-content; /* Adjusts to content size */
-    margin: 35px auto; /* Reinforces horizontal centering */
-    transition:
-      background-color 0.3s ease,
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
-  }
-  
-  .firmSection .submit-btn:hover {
-    background-color: green; 
-    transform: translateY(-2px); /* Slight lift for dynamic effect */
-    box-shadow: 0 2px 5px rgba(212, 160, 23, 0.3); /* Subtle shadow on hover */
-  }
-.collection{
-    display: flex;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #1a2e44;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: fit-content;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.firmSection .submit-btn:hover {
+  background-color: green;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(212, 160, 23, 0.3);
+}
+
+.firmSection .submit-btn:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 /* Animations */
 @keyframes slideInLeft {
   0% { transform: translateX(-40px); opacity: 0; }
   100% { transform: translateX(0); opacity: 1; }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+/* Tablet and Medium Screens */
 @media (max-width: 768px) {
   .firmSection {
-    margin: 10px;
-    margin-left: 20px;
+    margin: 10px auto;
     padding: 15px;
-    width: 100%;
+    width: 95%;
     max-width: 600px;
+    border-width: 3px;
   }
 
   .firmSection h3 {
     font-size: 20px;
-    margin-bottom: 30px;
-    gap: 8px;
-  }
-
-  .firmSection .regsiterGif {
-    width: 32px;
-    height: 32px;
+    margin-bottom: 25px;
   }
 
   .firmSection form {
-    gap: 40px;
+    gap: 15px;
+    margin: 0 8px;
   }
 
   .firmSection input {
     font-size: 14px;
     padding: 8px 10px;
+    border-width: 2px;
   }
 
   .firmSection .submit-btn {
     font-size: 14px;
     padding: 8px 16px;
-    margin: 20px auto;
-  }
-
-  .check-input {
-    gap: 8px;
-  }
-
-  .check-input > label {
-    font-size: 16px;
-  }
-
-  .checkBoxContainer {
-    gap: 15px;
-  }
-
-  .checkBoxContainer label {
-    font-size: 14px;
-  }
-
-  .checkBoxContainer input[type='checkbox'] {
-    width: 18px;
-    height: 18px;
-  }
-
-  .checkBoxContainer input[type='checkbox']:checked::after {
-    font-size: 12px;
   }
 }
 
+/* Mobile Screens */
 @media (max-width: 480px) {
   .firmSection {
-    margin: 5px;
-    margin-left: 10px;
+    margin: 5px auto;
     padding: 10px;
-    max-width: 100%;
+    width: 95%;
     border-width: 2px;
   }
 
   .firmSection h3 {
     font-size: 18px;
     margin-bottom: 20px;
-    gap: 6px;
-  }
-
-  .firmSection .regsiterGif {
-    width: 28px;
-    height: 28px;
   }
 
   .firmSection form {
-    margin: 5px;
-    gap: 30px;
+    gap: 12px;
+    margin: 0 5px;
   }
 
   .firmSection input {
@@ -203,36 +169,12 @@
     border-width: 2px;
   }
 
+  .firmSection input[type='file'] {
+    padding: 6px;
+  }
+
   .firmSection .submit-btn {
     font-size: 12px;
     padding: 6px 12px;
-    margin: 15px auto;
-  }
-
-  .check-input {
-    gap: 6px;
-  }
-
-  .check-input > label {
-    font-size: 14px;
-  }
-
-  .checkBoxContainer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .checkBoxContainer label {
-    font-size: 12px;
-  }
-
-  .checkBoxContainer input[type='checkbox'] {
-    width: 16px;
-    height: 16px;
-  }
-
-  .checkBoxContainer input[type='checkbox']:checked::after {
-    font-size: 10px;
   }
 }
