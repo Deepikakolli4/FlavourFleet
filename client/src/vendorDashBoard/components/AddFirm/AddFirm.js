@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './AddFirm.css';
 import { API_URL } from '../../utilities/ApiPath';
+
 const AddFirm = () => {
   const [firmName, setFirmName] = useState("");
   const [area, setArea] = useState("");
@@ -14,7 +15,9 @@ const AddFirm = () => {
     try {
       const loginToken = localStorage.getItem("loginToken");
       if (!loginToken) {
-        console.error("User not Authenticated");
+        alert('Please log in to add a firm.');
+        // Optionally redirect to login page
+        // window.location.href = '/login';
         return;
       }
 
@@ -32,20 +35,43 @@ const AddFirm = () => {
         formData.append('image', file);
       }
 
-      // Send formData to an API 
+      // Log FormData for debugging
+      for (let pair of formData.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+      }
+
       const response = await fetch(`${API_URL}/firm/addfirm`, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${loginToken}`,
+          'token': `${loginToken}`,
         },
         body: formData,
       });
+
       if (!response.ok) {
-        throw new Error('Failed to add firm');
+        if (response.status === 401) {
+          alert('Unauthorized: Please log in again.');
+          // Optionally clear token and redirect
+          // localStorage.removeItem('loginToken');
+          // window.location.href = '/login';
+          throw new Error('Unauthorized: Invalid or expired token');
+        }
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Failed to add firm: ${response.statusText}`);
       }
+
+      alert('Firm added successfully!');
       console.log('Firm added successfully');
+      // Optionally reset form
+      setFirmName("");
+      setArea("");
+      setCategory([]);
+      setRegion([]);
+      setOffer("");
+      setFile(null);
     } catch (error) {
       console.error('Error submitting form:', error);
+      alert(`Error: ${error.message}`);
     }
   };
 
@@ -178,7 +204,7 @@ const AddFirm = () => {
               type="checkbox"
               checked={region.includes('thickshake')}
               onChange={handleRegionChange}
-              value="thickshake"
+              value="Thickshake"
             />
           </div>
         </div>
