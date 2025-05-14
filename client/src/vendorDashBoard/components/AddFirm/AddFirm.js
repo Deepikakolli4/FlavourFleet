@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useRef } from 'react';
 import './AddFirm.css';
 import { API_URL } from '../../utilities/ApiPath';
 
@@ -9,6 +9,8 @@ const AddFirm = () => {
   const [region, setRegion] = useState([]);
   const [offer, setOffer] = useState("");
   const [file, setFile] = useState(null);
+  const fileInputRef = useRef(null);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,11 +37,6 @@ const AddFirm = () => {
         formData.append('image', file);
       }
 
-      // Log FormData for debugging
-      for (let pair of formData.entries()) {
-        console.log(`${pair[0]}: ${pair[1]}`);
-      }
-
       const response = await fetch(`${API_URL}/firm/addfirm`, {
         method: 'POST',
         headers: {
@@ -62,13 +59,15 @@ const AddFirm = () => {
 
       alert('Firm added successfully!');
       console.log('Firm added successfully');
-      // Optionally reset form
       setFirmName("");
       setArea("");
       setCategory([]);
       setRegion([]);
       setOffer("");
       setFile(null);
+      if (fileInputRef.current) {
+       fileInputRef.current.value = null;
+       }
     } catch (error) {
       console.error('Error submitting form:', error);
       alert(`Error: ${error.message}`);
@@ -200,7 +199,7 @@ const AddFirm = () => {
             <label>Thickshake</label>
             <input
               type="checkbox"
-              checked={region.includes('thickshake')}
+              checked={region.includes('Thickshake')}
               onChange={handleRegionChange}
               value="Thickshake"
             />
@@ -219,6 +218,7 @@ const AddFirm = () => {
           type="file"
           placeholder="Enter Image"
           onChange={handleFileChange}
+          ref={fileInputRef}
         />
 
         <div className="submit-btn-container">
