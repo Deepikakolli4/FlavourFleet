@@ -51,9 +51,9 @@ const AddFirm = () => {
       if (!response.ok) {
         if (response.status === 401) {
           alert('Unauthorized: Please log in again.');
-          // Optionally clear token and redirect
-          // localStorage.removeItem('loginToken');
-          // window.location.href = '/login';
+          // clear token and redirect
+          localStorage.removeItem('loginToken');
+          window.location.href = '/login';
           throw new Error('Unauthorized: Invalid or expired token');
         }
         const errorData = await response.json().catch(() => ({}));
@@ -126,7 +126,6 @@ const AddFirm = () => {
               checked={category.includes('veg')}
               onChange={handleCategoryChange}
               value="veg"
-              required
             />
 
             <label>Non-Veg</label>
@@ -148,7 +147,6 @@ const AddFirm = () => {
               value="south-indian"
               checked={region.includes('south-indian')}
               onChange={handleRegionChange}
-              required
             />
 
             <label>North Indian</label>
