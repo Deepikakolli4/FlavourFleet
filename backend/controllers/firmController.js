@@ -20,6 +20,10 @@ const addFirm = async(req,res)=>{
         if(!vendor){
             res.status(404).json({message:"Vendor not found"})
         }
+         if(vendor.firm.length > 0){
+            // if they already have one, they should not be allowed to add another
+            return res.status(400).json({message:"vendor can have only one firm"});
+        }
         const firm = new Firm({
             firmName,
             area,
