@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import './AddProduct.css';
 const AddProduct = () => {
+  const[productName,setProductName] = useState("");
+  const[price,setPrice] = useState("");
   const [category, setCategory] = useState([]);
   const [bestSeller, setBestSeller] = useState('No');
+  const [image,setImage] = useState(null);
+  const [description,setDescription] = useState("")
 
   const handleCategoryChange = (event) => {
     const value = event.target.value;
@@ -17,11 +21,18 @@ const AddProduct = () => {
     setBestSeller(event.target.value);
   };
 
+  const handleAddProduct = async()=>{
+    
+  }
+
   return (
     <div className="firmSection">
       <h3>Add Product</h3>
       <form>
-        <input type="text" placeholder="Enter ProductName" />
+        <input type="text" 
+        placeholder="Enter ProductName"
+        value = "productName"
+         />
         <input type="text" placeholder="Enter Price" />
         <div className="checkInp">
           <label>Category</label>
