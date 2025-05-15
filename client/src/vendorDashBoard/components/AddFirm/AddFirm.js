@@ -49,16 +49,19 @@ const AddFirm = () => {
         if (response.status === 401) {
           alert('Unauthorized: Please log in again.');
           // clear token and redirect
-          localStorage.removeItem('loginToken');
-          window.location.href = '/login';
+          // localStorage.removeItem('loginToken');
+          // window.location.href = '/login';
           throw new Error('Unauthorized: Invalid or expired token');
         }
         const errorData = await response.json().catch(() => ({}));
         throw new Error(errorData.message || `Failed to add firm: ${response.statusText}`);
       }
-
+      const data = await response.json();
       alert('Firm added successfully!');
       console.log('Firm added successfully');
+      // console.log("this is firm id "+ data.firmId);
+      const firmId = data.firmId;
+      localStorage.setItem('firmId',firmId);
       setFirmName("");
       setArea("");
       setCategory([]);

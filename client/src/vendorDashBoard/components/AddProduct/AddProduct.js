@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import './AddProduct.css';
+import React, { useState, useRef } from "react";
+import "./AddProduct.css";
+import { API_URL } from "../../utilities/ApiPath";
 const AddProduct = () => {
-  const[productName,setProductName] = useState("");
-  const[price,setPrice] = useState("");
+  const [productName, setProductName] = useState("");
+  const [price, setPrice] = useState("");
   const [category, setCategory] = useState([]);
-  const [bestSeller, setBestSeller] = useState('No');
-  const [image,setImage] = useState(null);
-  const [description,setDescription] = useState("")
-
+  const [bestSeller, setBestSeller] = useState("No");
+  const [description, setDescription] = useState("");
+  const [file, setFile] = useState(null);
+  const fileInputRef = useRef(null);
   const handleCategoryChange = (event) => {
     const value = event.target.value;
     if (category.includes(value)) {
@@ -20,20 +21,73 @@ const AddProduct = () => {
   const handleBestSellerChange = (event) => {
     setBestSeller(event.target.value);
   };
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
 
-  const handleAddProduct = async()=>{
-    
-  }
+  const handleAddProduct = async (e) => {
+    e.preventDefault();
+    try {
+      const loginToken = localStorage.getItem("loginToken");
+      const firmId = localStorage.getItem("firmId");
+
+      if (!loginToken || !firmId) {
+        console.error("User not Authenticated");
+        alert("Authentication failed. Please log in.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("productName", productName);
+      formData.append("price", price);
+      category.forEach((value) => {
+        formData.append("category", value);
+      });
+      formData.append("description", description);
+      formData.append("image", file);
+
+      const response = await fetch(`${API_URL}/product/addproduct/${firmId}`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        alert("Product added successfully");
+        setProductName("");
+        setPrice("");
+        setCategory([]);
+        setBestSeller("No");
+        setFile(null);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = null;
+        }
+      } else {
+        const data = await response.json();
+        console.error(data.message || "Unknown error");
+        alert(data.message || "Failed to add Product");
+      }
+    } catch (error) {
+      console.error(error.message);
+      alert("Failed to add Product");
+    }
+  };
 
   return (
     <div className="firmSection">
       <h3>Add Product</h3>
-      <form>
-        <input type="text" 
-        placeholder="Enter ProductName"
-        value = "productName"
-         />
-        <input type="text" placeholder="Enter Price" />
+      <form onSubmit={handleAddProduct}>
+        <input
+          type="text"
+          placeholder="Enter ProductName"
+          value={productName}
+          onChange={(e) => setProductName(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Enter Price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
         <div className="checkInp">
           <label>Category</label>
           <div className="inputsContainer">
@@ -42,7 +96,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 value="veg"
-                checked={category.includes('veg')}
+                checked={category.includes("veg")}
                 onChange={handleCategoryChange}
               />
             </div>
@@ -51,7 +105,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 value="non-veg"
-                checked={category.includes('non-veg')}
+                checked={category.includes("non-veg")}
                 onChange={handleCategoryChange}
               />
             </div>
@@ -66,7 +120,7 @@ const AddProduct = () => {
                 type="radio"
                 name="bestSeller"
                 value="Yes"
-                checked={bestSeller === 'Yes'}
+                checked={bestSeller === "Yes"}
                 onChange={handleBestSellerChange}
               />
             </div>
@@ -76,14 +130,24 @@ const AddProduct = () => {
                 type="radio"
                 name="bestSeller"
                 value="No"
-                checked={bestSeller === 'No'}
+                checked={bestSeller === "No"}
                 onChange={handleBestSellerChange}
               />
             </div>
           </div>
         </div>
-        <input type="text" placeholder="Enter Description" />
-        <input type="file" placeholder="Enter Image" />
+        <input
+          type="text"
+          placeholder="Enter Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <input
+          type="file"
+          placeholder="Enter Image"
+          onChange={handleFileChange}
+          ref={fileInputRef}
+        />
         <div className="submit-btn-container">
           <button className="submit-btn" type="submit">
             Submit
