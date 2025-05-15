@@ -33,6 +33,14 @@ const Login = ({showWelcomeHandler}) => {
             console.error('API error:', data, 'Status:', response.status);
             setError(data.message || `Login failed: ${response.status} ${response.statusText}`);
           }
+          const id = data.vendorFirmId;
+          console.log(id);
+          const vendorResponse = await fetch(`${API_URL}/vendor/vendorById/${id}`);
+          const vendorData = await vendorResponse.json();
+          if(vendorData.ok){
+            const vendorFirmId = vendorData.vendorFirmId;
+            console.log("Checking for the firm Id :" ,vendorFirmId);
+          }
         } catch (err) {
           console.error('Login error:', err, err.message);
           setError(`An error occurred: ${err.message}. Please check your network or try again.`);
