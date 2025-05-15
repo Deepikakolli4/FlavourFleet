@@ -1,6 +1,6 @@
-import React, { useState , useRef } from 'react';
-import './AddFirm.css';
-import { API_URL } from '../../utilities/ApiPath';
+import React, { useState, useRef } from "react";
+import "./AddFirm.css";
+import { API_URL } from "../../utilities/ApiPath";
 
 const AddFirm = () => {
   const [firmName, setFirmName] = useState("");
@@ -11,57 +11,76 @@ const AddFirm = () => {
   const [file, setFile] = useState(null);
   const fileInputRef = useRef(null);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const loginToken = localStorage.getItem("loginToken");
       if (!loginToken) {
-        alert('Please log in to add a firm.');
+        alert("Please log in to add a firm.");
         // Optionally redirect to login page
         // window.location.href = '/login';
         return;
       }
 
       const formData = new FormData();
-      formData.append('firmName', firmName);
-      formData.append('area', area);
-      formData.append('offer', offer);
+      formData.append("firmName", firmName);
+      formData.append("area", area);
+      formData.append("offer", offer);
       category.forEach((value) => {
-        formData.append('category', value);
+        formData.append("category", value);
       });
       region.forEach((value) => {
-        formData.append('region', value);
+        formData.append("region", value);
       });
       if (file) {
-        formData.append('image', file);
+        formData.append("image", file);
       }
 
       const response = await fetch(`${API_URL}/firm/addfirm`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'token': `${loginToken}`,
+          token: `${loginToken}`,
         },
         body: formData,
       });
 
+      // Handle HTTP-level errors
       if (!response.ok) {
         if (response.status === 401) {
-          alert('Unauthorized: Please log in again.');
-          // clear token and redirect
-          // localStorage.removeItem('loginToken');
-          // window.location.href = '/login';
-          throw new Error('Unauthorized: Invalid or expired token');
+          alert("Unauthorized: Please log in again.");
+          throw new Error("Unauthorized: Invalid or expired token");
         }
+
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || `Failed to add firm: ${response.statusText}`);
+
+        // Check custom error message from backend
+        if (errorData.message === "vendor can have only one firm") {
+          alert("Firm exists!! Only one firm can be added.");
+          setFirmName("");
+          setArea("");
+          setCategory([]);
+          setRegion([]);
+          setOffer("");
+          setFile(null);
+          if (fileInputRef.current) {
+            fileInputRef.current.value = null;
+          }
+        }
+
+        throw new Error(
+          errorData.message || `Failed to add firm: ${response.statusText}`
+        );
       }
+
+      // If response is OK, proceed
       const data = await response.json();
-      alert('Firm added successfully!');
-      console.log('Firm added successfully');
-      // console.log("this is firm id "+ data.firmId);
+      alert("Firm added successfully!");
+      console.log("Firm added successfully");
+
       const firmId = data.firmId;
-      localStorage.setItem('firmId',firmId);
+      localStorage.setItem("firmId", firmId);
+
+      // Reset form
       setFirmName("");
       setArea("");
       setCategory([]);
@@ -69,10 +88,10 @@ const AddFirm = () => {
       setOffer("");
       setFile(null);
       if (fileInputRef.current) {
-       fileInputRef.current.value = null;
-       }
+        fileInputRef.current.value = null;
+      }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error("Error submitting form:", error);
       alert(`Error: ${error.message}`);
     }
   };
@@ -125,7 +144,7 @@ const AddFirm = () => {
             <label>Veg</label>
             <input
               type="checkbox"
-              checked={category.includes('veg')}
+              checked={category.includes("veg")}
               onChange={handleCategoryChange}
               value="veg"
             />
@@ -133,7 +152,7 @@ const AddFirm = () => {
             <label>Non-Veg</label>
             <input
               type="checkbox"
-              checked={category.includes('non-veg')}
+              checked={category.includes("non-veg")}
               onChange={handleCategoryChange}
               value="non-veg"
             />
@@ -147,14 +166,14 @@ const AddFirm = () => {
             <input
               type="checkbox"
               value="south-indian"
-              checked={region.includes('south-indian')}
+              checked={region.includes("south-indian")}
               onChange={handleRegionChange}
             />
 
             <label>North Indian</label>
             <input
               type="checkbox"
-              checked={region.includes('north-indian')}
+              checked={region.includes("north-indian")}
               onChange={handleRegionChange}
               value="north-indian"
             />
@@ -162,7 +181,7 @@ const AddFirm = () => {
             <label>Chinese</label>
             <input
               type="checkbox"
-              checked={region.includes('chinese')}
+              checked={region.includes("chinese")}
               onChange={handleRegionChange}
               value="chinese"
             />
@@ -170,7 +189,7 @@ const AddFirm = () => {
             <label>Bakery</label>
             <input
               type="checkbox"
-              checked={region.includes('bakery')}
+              checked={region.includes("bakery")}
               onChange={handleRegionChange}
               value="bakery"
             />
@@ -178,7 +197,7 @@ const AddFirm = () => {
             <label>Traditional</label>
             <input
               type="checkbox"
-              checked={region.includes('traditional')}
+              checked={region.includes("traditional")}
               onChange={handleRegionChange}
               value="traditional"
             />
@@ -186,7 +205,7 @@ const AddFirm = () => {
             <label>Authentic</label>
             <input
               type="checkbox"
-              checked={region.includes('authentic')}
+              checked={region.includes("authentic")}
               onChange={handleRegionChange}
               value="authentic"
             />
@@ -194,7 +213,7 @@ const AddFirm = () => {
             <label>Juices</label>
             <input
               type="checkbox"
-              checked={region.includes('juices')}
+              checked={region.includes("juices")}
               onChange={handleRegionChange}
               value="juices"
             />
@@ -202,7 +221,7 @@ const AddFirm = () => {
             <label>Thickshake</label>
             <input
               type="checkbox"
-              checked={region.includes('Thickshake')}
+              checked={region.includes("Thickshake")}
               onChange={handleRegionChange}
               value="Thickshake"
             />
