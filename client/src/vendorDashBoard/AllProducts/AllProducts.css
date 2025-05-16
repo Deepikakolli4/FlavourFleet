@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Products Section */
+.productsSection {
+  margin: 15px auto; /* Centered with auto margins */
+  padding: 20px;
+  background-color: #f8fafc;
+  border: 4px solid #1a2e44;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 90%; /* Responsive width */
+  max-width: 800px; /* Max width for larger screens */
+  min-height: 300px;
+  animation: slideInLeft 1s ease forwards;
+}
+
+/* Heading */
+.productsSection h3 {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a2e44;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  animation: slideInLeft 1s ease forwards;
+  animation-delay: 0.2s;
+}
+
+/* No Products Message */
+.productsSection .no-products {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  color: #1a2e44;
+  text-align: center;
+  opacity: 0;
+  animation: slideInLeft 1s ease forwards;
+  animation-delay: 0.4s;
+}
+
+/* Table Styling */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Poppins', sans-serif;
+  opacity: 0;
+  animation: slideInLeft 1s ease forwards;
+  animation-delay: 0.6s;
+}
+
+.product-table th,
+.product-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 2px solid #bdc3cc;
+}
+
+.product-table th {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a2e44;
+  background-color: #ffffff;
+}
+
+.product-table td {
+  font-size: 14px;
+  font-weight: 400;
+  color: #1a2e44;
+}
+
+/* Image Styling */
+.product-table .product-image {
+  width: 50px;
+  height: auto;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+/* Delete Button */
+.product-table .delete-btn {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #1a2e44;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-table .delete-btn:hover {
+  background-color: green;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(212, 160, 23, 0.3);
+}
+
+.product-table .delete-btn:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Animations */
+@keyframes slideInLeft {
+  0% { transform: translateX(-40px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+/* Tablet and Medium Screens */
+@media (max-width: 768px) {
+  .productsSection {
+    margin: 10px auto;
+    padding: 15px;
+    width: 95%;
+    max-width: 600px;
+    border-width: 3px;
+  }
+
+  .productsSection h3 {
+    font-size: 20px;
+    margin-bottom: 25px;
+    gap: 8px;
+  }
+
+  .productsSection .no-products {
+    font-size: 14px;
+  }
+
+  .product-table th,
+  .product-table td {
+    padding: 10px 12px;
+  }
+
+  .product-table th {
+    font-size: 14px;
+  }
+
+  .product-table td {
+    font-size: 12px;
+  }
+
+  .product-table .product-image {
+    width: 40px;
+  }
+
+  .product-table .delete-btn {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+/* Mobile Screens */
+@media (max-width: 480px) {
+  .productsSection {
+    margin: 5px auto;
+    padding: 10px;
+    width: 95%;
+    border-width: 2px;
+  }
+
+  .productsSection h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    gap: 6px;
+  }
+
+  .productsSection .no-products {
+    font-size: 12px;
+  }
+
+  .product-table th,
+  .product-table td {
+    padding: 8px 10px;
+  }
+
+  .product-table th {
+    font-size: 12px;
+  }
+
+  .product-table td {
+    font-size: 10px;
+  }
+
+  .product-table .product-image {
+    width: 30px;
+  }
+
+  .product-table .delete-btn {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+}
