@@ -57,6 +57,7 @@ const AddProduct = () => {
         setPrice("");
         setCategory([]);
         setBestSeller("No");
+        setDescription("");
         setFile(null);
         if (fileInputRef.current) {
           fileInputRef.current.value = null;

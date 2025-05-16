@@ -34,12 +34,13 @@ const Login = ({showWelcomeHandler}) => {
             setError(data.message || `Login failed: ${response.status} ${response.statusText}`);
           }
           const id = data.vendorId;
-          console.log(id);
+          // console.log(id);
           const vendorResponse = await fetch(`${API_URL}/vendor/vendorById/${id}`);
           const vendorData = await vendorResponse.json();
           if(vendorData.ok){
             const vendorFirmId = vendorData.vendorId;
             console.log("Checking for the firm Id :" ,vendorFirmId);
+            localStorage.setItem('firmId',vendorFirmId);
           }
         } catch (err) {
           console.error('Login error:', err, err.message);
