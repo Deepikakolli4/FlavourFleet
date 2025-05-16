@@ -25,6 +25,24 @@ const AllProducts = () => {
   //[]->empty dependency it implement the changes in the doc once
   //we fetch the data only if there are any changes in the data at the backend
 
+  const deleteProductById = async(productId)=>{
+    try{
+        const response = await fetch(`${API_URL}/product/${productId}`,
+            {
+                method : 'DELETE',
+            })
+        if(response.ok){
+            confirm('Are you sure to delete?');
+            setProducts(products.filter(product => product._id !== productId));
+            alert("product is deleted successfully!");
+        }    
+
+    }catch(error){
+     console.error("Failed to delete");
+     alert("Failed to delete");
+    }
+  }
+
   return (
     <div className="productsSection">
       <h3>Products List</h3>
@@ -57,7 +75,9 @@ const AllProducts = () => {
                   )}
                 </td>
                 <td>
-                  <button className="delete-btn">Delete</button>
+                  <button className="delete-btn" onClick={()=>deleteProductById(item._id)}>
+                    Delete
+                    </button>
                 </td>
               </tr>
             ))}
