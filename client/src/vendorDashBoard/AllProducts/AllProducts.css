@@ -2,14 +2,14 @@
 
 /* Products Section */
 .productsSection {
-  margin: 15px auto; /* Centered with auto margins */
+  margin: 15px auto;
   padding: 20px;
   background-color: #f8fafc;
   border: 4px solid #1a2e44;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  width: 90%; /* Responsive width */
-  max-width: 800px; /* Max width for larger screens */
+  width: 90%;
+  max-width: 800px;
   min-height: 300px;
   animation: slideInLeft 1s ease forwards;
 }
@@ -107,10 +107,101 @@
   box-shadow: none;
 }
 
+/* Confirm Modal */
+.confirm-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.confirm-modal-content {
+  background-color: #f8fafc;
+  border: 4px solid #1a2e44;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  opacity: 0;
+  animation: slideInLeft 0.5s ease forwards;
+}
+
+.confirm-modal-content p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #1a2e44;
+  margin: 0 0 20px;
+}
+
+.confirm-modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.confirm-btn,
+.cancel-btn {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.confirm-btn {
+  background-color: #1a2e44;
+  color: #ffffff;
+}
+
+.confirm-btn:hover {
+  background-color: #0f1e33;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.cancel-btn {
+  background-color: #d4a017;
+  color: #ffffff;
+}
+
+.cancel-btn:hover {
+  background-color: #b38b14;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 /* Animations */
 @keyframes slideInLeft {
-  0% { transform: translateX(-40px); opacity: 0; }
-  100% { transform: translateX(0); opacity: 1; }
+  0% {
+    transform: translateX(-40px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /* Tablet and Medium Screens */
@@ -154,6 +245,22 @@
     font-size: 12px;
     padding: 6px 12px;
   }
+
+  .confirm-modal-content {
+    max-width: 350px;
+    padding: 15px;
+  }
+
+  .confirm-modal-content p {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  .confirm-btn,
+  .cancel-btn {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
 }
 
 /* Mobile Screens */
@@ -193,6 +300,22 @@
   }
 
   .product-table .delete-btn {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+
+  .confirm-modal-content {
+    max-width: 280px;
+    padding: 10px;
+  }
+
+  .confirm-modal-content p {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .confirm-btn,
+  .cancel-btn {
     font-size: 10px;
     padding: 5px 10px;
   }

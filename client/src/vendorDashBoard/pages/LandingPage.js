@@ -61,7 +61,6 @@ const LandingPage = () => {
     setShowProduct(false);
     setshowWelcome(false);
     setShowAllProducts(true);
-    console.log("triggered");
   }
   return (
    <>

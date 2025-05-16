@@ -1,52 +1,97 @@
 import React, { useState, useEffect } from 'react';
 import { API_URL } from '../utilities/ApiPath';
-import './AllProducts.css'; // Import the new CSS file
+import './AllProducts.css';
 
-//useEffect helps to make the frontend in coord with the backend api if backend api 
-//gets more load it updates frontend in such a way that it account the changes
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
+
   const productsHandler = async () => {
     const firmId = localStorage.getItem('firmId');
+    if (!firmId) {
+      setError('No firm ID found. Please add a firm first.');
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
     try {
       const response = await fetch(`${API_URL}/product/getProductbyfirm/${firmId}`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch products: ${response.status}`);
+      }
       const productData = await response.json();
-      setProducts(productData.products || productData);
+      // console.log('API response:', productData);
+      const productsArray = Array.isArray(productData.products)
+        ? productData.products
+        : Array.isArray(productData)
+        ? productData
+        : [];
+      setProducts(productsArray);
     } catch (error) {
-      console.error("failed to fetch products:", error);
-      alert("failed to fetch products");
+      console.error('Failed to fetch products:', error);
+      setError('Failed to fetch products. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     productsHandler();
-    console.log('this is useeffect');
-  }, []); //can be empty dependency or any thing we want to pass 
-  //[]->empty dependency it implement the changes in the doc once
-  //we fetch the data only if there are any changes in the data at the backend
+    console.log('useEffect triggered');
+  }, []);
 
-  const deleteProductById = async(productId)=>{
-    try{
-        const response = await fetch(`${API_URL}/product/${productId}`,
-            {
-                method : 'DELETE',
-            })
-        if(response.ok){
-            confirm('Are you sure to delete?');
-            setProducts(products.filter(product => product._id !== productId));
-            alert("product is deleted successfully!");
-        }    
-
-    }catch(error){
-     console.error("Failed to delete");
-     alert("Failed to delete");
+  const deleteProductById = async (productId) => {
+    if (!productId || !/^[0-9a-fA-F]{24}$/.test(productId)) {
+      console.error('Invalid productId:', productId);
+      alert('Cannot delete: Invalid product ID');
+      return;
     }
-  }
+
+    const url = `${API_URL}/product/${productId}`;
+    console.log('DELETE request to:', url);
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        setProducts(products.filter(product => product._id !== productId));
+        alert('Product deleted successfully!');
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(`Deletion failed: ${errorData.error || response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Failed to delete:', error);
+      alert(`Failed to delete product: ${error.message}`);
+    } finally {
+      setShowConfirmModal(false);
+      setProductToDelete(null);
+    }
+  };
+
+  const handleDeleteClick = (productId) => {
+    setProductToDelete(productId);
+    setShowConfirmModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (productToDelete) {
+      deleteProductById(productToDelete);
+    }
+  };
 
   return (
     <div className="productsSection">
       <h3>Products List</h3>
-      {products.length === 0 ? (
+      {isLoading ? (
+        <p>Loading products...</p>
+      ) : error ? (
+        <p className="no-products">{error}</p>
+      ) : !Array.isArray(products) || products.length === 0 ? (
         <p className="no-products">No Products added</p>
       ) : (
         <table className="product-table">
@@ -75,14 +120,39 @@ const AllProducts = () => {
                   )}
                 </td>
                 <td>
-                  <button className="delete-btn" onClick={()=>deleteProductById(item._id)}>
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDeleteClick(item._id)}
+                    aria-label={`Delete ${item.productName}`}
+                  >
                     Delete
-                    </button>
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      )}
+      {showConfirmModal && (
+        <div className="confirm-modal">
+          <div className="confirm-modal-content">
+            <p>Are you sure you want to delete this product?</p>
+            <div className="confirm-modal-buttons">
+              <button className="confirm-btn" onClick={handleConfirmDelete}>
+                Yes
+              </button>
+              <button
+                className="cancel-btn"
+                onClick={() => {
+                  setShowConfirmModal(false);
+                  setProductToDelete(null);
+                }}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
