@@ -6,18 +6,21 @@ import Register from '../components/Register/Register'
 import AddFirm from '../components/AddFirm/AddFirm'
 import AddProduct from '../components/AddProduct/AddProduct'
 import Welcome from '../components/Welcome/Welcome'
+import AllProducts from '../AllProducts/AllProducts'
 const LandingPage = () => {
   const[showLogin,setShowLogin] = useState(false);
   const[showRegister,setShowRegister] = useState(false);
   const[showFirm,setShowFirm] = useState(false);
   const[showProduct,setShowProduct] = useState(false);
   const[showWelcome,setshowWelcome] = useState(false);
+  const[showAllProducts,setShowAllProducts] = useState(false);
   const showLoginHandler = () => {
        setShowLogin(true);
        setShowRegister(false);
        setShowFirm(false);
        setShowProduct(false);
        setshowWelcome(false);
+       setShowAllProducts(false);
   }
   const showRegisterHandler = () => {
     setShowRegister(true);
@@ -25,6 +28,7 @@ const LandingPage = () => {
     setShowFirm(false);
     setShowProduct(false);
     setshowWelcome(false);
+    setShowAllProducts(false);
   }
   const showFirmHandler = () => {
     setShowRegister(false);
@@ -32,6 +36,7 @@ const LandingPage = () => {
     setShowFirm(true);
     setShowProduct(false);
     setshowWelcome(false);
+    setShowAllProducts(false);
   }
   const showProductHandler = () => {
     setShowRegister(false);
@@ -39,6 +44,7 @@ const LandingPage = () => {
     setShowFirm(false);
     setShowProduct(true);
     setshowWelcome(false);
+    setShowAllProducts(false);
   }
   const showWelcomeHandler = () => {
     setShowRegister(false);
@@ -46,18 +52,32 @@ const LandingPage = () => {
     setShowFirm(false);
     setShowProduct(false);
     setshowWelcome(true);
+    setShowAllProducts(false);
+  }
+   const showAllProductsHandler = () => {
+    setShowRegister(false);
+    setShowLogin(false);
+    setShowFirm(false);
+    setShowProduct(false);
+    setshowWelcome(false);
+    setShowAllProducts(true);
   }
   return (
    <>
    <section className='landingSection'>
     <NavBar showLoginHandler = {showLoginHandler} showRegisterHandler = {showRegisterHandler}/>
     <div className='collection'>
-    <SideBar showFirmHandler = {showFirmHandler} showProductHandler = {showProductHandler}/>
+    <SideBar 
+    showFirmHandler = {showFirmHandler} 
+    showProductHandler = {showProductHandler}
+    showAllProductsHandler = {showAllProductsHandler}
+    />
     {showLogin && <Login showWelcomeHandler={showWelcomeHandler}/>}
     {showRegister && <Register  showLoginHandler = {showLoginHandler}/>}
     {showFirm && <AddFirm/>}
     {showProduct && <AddProduct />}
     {showWelcome && <Welcome/> }
+    {showAllProducts && <AllProducts />}
     </div>
    </section>
    </>
