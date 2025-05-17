@@ -6,7 +6,7 @@ import Register from '../components/Register/Register'
 import AddFirm from '../components/AddFirm/AddFirm'
 import AddProduct from '../components/AddProduct/AddProduct'
 import Welcome from '../components/Welcome/Welcome'
-import AllProducts from '../AllProducts/AllProducts'
+import AllProducts from '../components/AllProducts/AllProducts'
 const LandingPage = () => {
   const[showLogin,setShowLogin] = useState(false);
   const[showRegister,setShowRegister] = useState(false);

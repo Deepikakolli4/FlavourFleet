@@ -10,6 +10,7 @@ const NavBar = ({showLoginHandler , showRegisterHandler}) => {
           <span onClick={showLoginHandler}>Login </span>
           <span>/</span>
           <span onClick={showRegisterHandler}>Register</span>
+          <span onClick={showRegisterHandler}>LogOut</span>
         </div>
     </div>
   )
