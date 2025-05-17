@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React , {useState,useEffect} from 'react'
 import NavBar from '../components/NavBar/NavBar'
 import SideBar from '../components/SideBar/SideBar'
 import Login from '../components/Login/Login'
@@ -14,6 +14,13 @@ const LandingPage = () => {
   const[showProduct,setShowProduct] = useState(false);
   const[showWelcome,setshowWelcome] = useState(false);
   const[showAllProducts,setShowAllProducts] = useState(false);
+  const[showLogOut,setShowLogOut] = useState(false);
+   useEffect(()=>{
+        const loginToken = localStorage.getItem('loginToken');
+        if(loginToken){
+          setShowLogOut(true);
+        }
+    },[])
   const showLoginHandler = () => {
        setShowLogin(true);
        setShowRegister(false);
@@ -62,10 +69,19 @@ const LandingPage = () => {
     setshowWelcome(false);
     setShowAllProducts(true);
   }
+  const showLogOutHandler = () =>{
+    localStorage.remove('loginToken');
+    localStorage.remove('firmId');
+  }
   return (
    <>
    <section className='landingSection'>
-    <NavBar showLoginHandler = {showLoginHandler} showRegisterHandler = {showRegisterHandler}/>
+    <NavBar 
+    showLoginHandler = {showLoginHandler} 
+    showRegisterHandler = {showRegisterHandler}
+    showLogOut = {showLogOut}
+    showLogOutHandler = { showLogOutHandler }
+    />
     <div className='collection'>
     <SideBar 
     showFirmHandler = {showFirmHandler} 
