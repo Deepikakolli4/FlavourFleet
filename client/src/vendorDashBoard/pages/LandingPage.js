@@ -19,6 +19,7 @@ const LandingPage = () => {
         const loginToken = localStorage.getItem('loginToken');
         if(loginToken){
           setShowLogOut(true);
+          setshowWelcome(true);
         }
     },[])
   const showLoginHandler = () => {
@@ -69,10 +70,13 @@ const LandingPage = () => {
     setshowWelcome(false);
     setShowAllProducts(true);
   }
-  const showLogOutHandler = () =>{
-    localStorage.remove('loginToken');
-    localStorage.remove('firmId');
-  }
+  const showLogOutHandler = () => {
+  // confirm("Are you sure to logout?")
+  localStorage.removeItem('loginToken');
+  localStorage.removeItem('firmId');
+  setshowWelcome(false);
+  setShowLogOut(false);
+};
   return (
    <>
    <section className='landingSection'>

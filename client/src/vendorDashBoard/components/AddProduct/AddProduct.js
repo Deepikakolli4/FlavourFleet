@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import "./AddProduct.css";
 import { API_URL } from "../../utilities/ApiPath";
+
 const AddProduct = () => {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
@@ -9,6 +10,7 @@ const AddProduct = () => {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState(null);
   const fileInputRef = useRef(null);
+
   const handleCategoryChange = (event) => {
     const value = event.target.value;
     if (category.includes(value)) {
@@ -21,25 +23,33 @@ const AddProduct = () => {
   const handleBestSellerChange = (event) => {
     setBestSeller(event.target.value);
   };
+
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
+
     try {
       const loginToken = localStorage.getItem("loginToken");
       const firmId = localStorage.getItem("firmId");
 
+      console.log("AddProduct - loginToken:", loginToken);
+      console.log("AddProduct - firmId:", firmId);
+
       if (!loginToken || !firmId) {
-        console.error("User not Authenticated");
-        alert("Authentication failed. Please log in.");
+        alert("Authentication failed or Firm ID missing. Please login again.");
         return;
       }
 
       const formData = new FormData();
       formData.append("productName", productName);
       formData.append("price", price);
+
+      // Convert bestSeller to Boolean before sending
+      formData.append("bestSeller", bestSeller === "Yes");
+
       category.forEach((value) => {
         formData.append("category", value);
       });
@@ -64,12 +74,12 @@ const AddProduct = () => {
         }
       } else {
         const data = await response.json();
-        console.error(data.message || "Unknown error");
-        alert(data.message || "Failed to add Product");
+        console.error("AddProduct failed:", data.message || "Unknown error");
+        alert(data.message || "Failed to add product");
       }
     } catch (error) {
-      console.error(error.message);
-      alert("Failed to add Product");
+      console.error("AddProduct error:", error.message);
+      alert("Failed to add product");
     }
   };
 
