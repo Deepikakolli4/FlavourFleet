@@ -86,6 +86,8 @@ const LandingPage = () => {
   setshowWelcome(false);
   setShowLogOut(false);
   setShowFirmTitle(true);
+  setShowAllProducts(false);
+  setShowLogin(false);
 };
   return (
    <>
@@ -105,10 +107,10 @@ const LandingPage = () => {
     />
     {showLogin && <Login showWelcomeHandler={showWelcomeHandler}/>}
     {showRegister && <Register  showLoginHandler = {showLoginHandler}/>}
-    {showFirm && <AddFirm/>}
-    {showProduct && <AddProduct />}
+    {showFirm && showLogOut &&<AddFirm/>}
+    {showProduct && showLogOut &&<AddProduct />}
     {showWelcome && <Welcome/> }
-    {showAllProducts && <AllProducts />}
+    {showAllProducts && showLogOut && <AllProducts />}
     </div>
    </section>
    </>

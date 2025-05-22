@@ -57,15 +57,13 @@ const Login = ({ showWelcomeHandler }) => {
 
     // Check for vendorId
     const vendorId = loginData.vendorId;
-    if (!vendorId) {
-      throw new Error("Vendor ID not found in login response.");
-    }
-
+    
     // Fetch vendor details
     try {
       const vendorResponse = await fetch(
         `${API_URL}/vendor/vendorById/${vendorId}`
       );
+       window.location.reload();
       const vendorData = await vendorResponse.json();
       console.log(vendorData);
 
@@ -91,7 +89,6 @@ const Login = ({ showWelcomeHandler }) => {
 
       // Trigger welcome handler
       showWelcomeHandler();
-      window.location.reload();
     } catch (vendorError) {
       throw new Error(`Error fetching vendor details: ${vendorError.message}`);
     }
