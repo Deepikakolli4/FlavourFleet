@@ -47,20 +47,30 @@ const LandingPage = () => {
     setShowAllProducts(false);
   }
   const showFirmHandler = () => {
+    if(showLogOut){
     setShowRegister(false);
     setShowLogin(false);
     setShowFirm(true);
     setShowProduct(false);
     setshowWelcome(false);
     setShowAllProducts(false);
+    }else{
+      alert("please login to continue");
+      setShowLogin(true);
+    }
   }
   const showProductHandler = () => {
+    if(showLogOut){
     setShowRegister(false);
     setShowLogin(false);
     setShowFirm(false);
     setShowProduct(true);
     setshowWelcome(false);
     setShowAllProducts(false);
+    }else{
+      alert("please login to continue");
+      setShowLogin(true);
+    }
   }
   const showWelcomeHandler = () => {
     setShowRegister(false);
@@ -71,12 +81,17 @@ const LandingPage = () => {
     setShowAllProducts(false);
   }
    const showAllProductsHandler = () => {
+    if(showLogOut){
     setShowRegister(false);
     setShowLogin(false);
     setShowFirm(false);
     setShowProduct(false);
     setshowWelcome(false);
     setShowAllProducts(true);
+    }else{
+      alert("please login to continue");
+      setShowLogin(true);
+    }
   }
   const showLogOutHandler = () => {
   // confirm("Are you sure to logout?")
