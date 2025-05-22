@@ -29,59 +29,65 @@ const AddProduct = () => {
   };
 
   const handleAddProduct = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const loginToken = localStorage.getItem("loginToken");
-      const firmId = localStorage.getItem("firmId");
+  try {
+    const loginToken = localStorage.getItem("loginToken");
+    const firmId = localStorage.getItem("firmId");
 
-      console.log("AddProduct - loginToken:", loginToken);
-      console.log("AddProduct - firmId:", firmId);
+    // console.log("Checkpoint 2: Retrieved tokens");
+    // console.log("loginToken:", loginToken);
+    // console.log("firmId:", firmId);
 
-      if (!loginToken || !firmId) {
-        alert("Authentication failed or Firm ID missing. Please login again.");
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append("productName", productName);
-      formData.append("price", price);
-
-      // Convert bestSeller to Boolean before sending
-      formData.append("bestSeller", bestSeller === "Yes");
-
-      category.forEach((value) => {
-        formData.append("category", value);
-      });
-      formData.append("description", description);
-      formData.append("image", file);
-
-      const response = await fetch(`${API_URL}/product/addproduct/${firmId}`, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        alert("Product added successfully");
-        setProductName("");
-        setPrice("");
-        setCategory([]);
-        setBestSeller("No");
-        setDescription("");
-        setFile(null);
-        if (fileInputRef.current) {
-          fileInputRef.current.value = null;
-        }
-      } else {
-        const data = await response.json();
-        console.error("AddProduct failed:", data.message || "Unknown error");
-        alert(data.message || "Failed to add product");
-      }
-    } catch (error) {
-      console.error("AddProduct error:", error.message);
-      alert("Failed to add product");
+    if (!loginToken || !firmId) {
+      alert("Authentication failed or Firm ID missing. Please login again.");
+      return;
     }
-  };
+
+    const formData = new FormData();
+    formData.append("productName", productName);
+    formData.append("price", price);
+    formData.append("bestSeller", bestSeller === "Yes");
+    category.forEach((value) => formData.append("category", value));
+    formData.append("description", description);
+    formData.append("image", file);
+
+    // console.log("Checkpoint 3: FormData constructed");
+
+    const apiEndpoint = `${API_URL}/product/addproduct/${firmId}`;
+    // console.log("Checkpoint 4: API endpoint", apiEndpoint);
+
+    const response = await fetch(apiEndpoint, {
+      method: "POST",
+      body: formData,
+    });
+
+    // console.log("Checkpoint 5: API response status", response.status);
+
+    if (response.ok) {
+      alert("Product added successfully");
+     
+      setProductName("");
+      setPrice("");
+      setCategory([]);
+      setBestSeller("No");
+      setDescription("");
+      setFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = null;
+      }
+    } else {
+      const data = await response.json();
+      // console.log("Checkpoint 7: Error response data", data);
+      console.error("AddProduct failed:", data.message || "Unknown error");
+      alert(data.message || "Failed to add product");
+    }
+  } catch (error) {
+    console.error("catch block error", error.message);
+    alert("Failed to add product");
+  }
+};
+
 
   return (
     <div className="firmSection">

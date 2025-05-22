@@ -18,6 +18,7 @@ const addProduct = async(req,res)=>{
        const image = req.file ? req.file.filename : undefined;
        //based on firm id we are adding the products 
        const firmId = req.params.firmId;
+       console.log(firmId);
        const firm = await Firm.findById(firmId);
        if(!firm){
         return res.status(404).json({error:"No firm found"});

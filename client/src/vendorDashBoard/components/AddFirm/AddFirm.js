@@ -76,7 +76,7 @@ const AddFirm = () => {
       const data = await response.json();
       alert("Firm added successfully!");
       console.log("Firm added successfully");
-
+      console.log(data);
       const firmId = data.firmId;
       localStorage.setItem("firmId", firmId);
 
