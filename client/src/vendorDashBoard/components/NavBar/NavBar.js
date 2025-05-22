@@ -1,10 +1,14 @@
 import React from 'react'
 import './NavBar.css'
 const NavBar = ({showLoginHandler , showRegisterHandler,showLogOut, showLogOutHandler }) => {
+  const firmName = localStorage.getItem('firmName');
   return (
     <div className='navSection'>
         <div className='company'>
          Vendor Dashboard
+        </div>
+        <div className='company'>
+          {firmName}
         </div>
         <div className='userAuth'>
           {!showLogOut ? 

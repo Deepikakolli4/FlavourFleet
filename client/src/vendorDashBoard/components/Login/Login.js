@@ -43,13 +43,14 @@ const Login = ({ showWelcomeHandler }) => {
       }
       const id = data.vendorId;
       console.log("Checking for the firm Id :", id);
-      console.log(id);
       const vendorResponse = await fetch(`${API_URL}/vendor/vendorById/${id}`);
       const vendorData = await vendorResponse.json();
       if (vendorResponse.ok) {
         const vendorFirmId = vendorData.vendorId;
-        console.log(vendorFirmId);
+        const vendorFirmName = vendorData.vendor.firm[0].firmName;
+        console.log("Firm name",vendorFirmName);
         localStorage.setItem("firmId", vendorFirmId);
+        localStorage.setItem("firmName", vendorFirmName);
         window.location.reload(); //to refresh
       }
     } catch (err) {
