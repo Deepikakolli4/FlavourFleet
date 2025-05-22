@@ -15,6 +15,7 @@ const LandingPage = () => {
   const[showWelcome,setshowWelcome] = useState(false);
   const[showAllProducts,setShowAllProducts] = useState(false);
   const[showLogOut,setShowLogOut] = useState(false);
+  const[showFirmTitle,setShowFirmTitle] = useState(true);
    useEffect(()=>{
         const loginToken = localStorage.getItem('loginToken');
         if(loginToken){
@@ -22,6 +23,13 @@ const LandingPage = () => {
           setshowWelcome(true);
         }
     },[])
+
+  useEffect(()=>{
+     const firmName = localStorage.getItem('firmName');
+     if(firmName){
+      setShowFirmTitle(false);
+     }
+  },[])
   const showLoginHandler = () => {
        setShowLogin(true);
        setShowRegister(false);
@@ -77,6 +85,7 @@ const LandingPage = () => {
   localStorage.removeItem('firmName');
   setshowWelcome(false);
   setShowLogOut(false);
+  setShowFirmTitle(true);
 };
   return (
    <>
@@ -92,6 +101,7 @@ const LandingPage = () => {
     showFirmHandler = {showFirmHandler} 
     showProductHandler = {showProductHandler}
     showAllProductsHandler = {showAllProductsHandler}
+    showFirmTitle = {showFirmTitle}
     />
     {showLogin && <Login showWelcomeHandler={showWelcomeHandler}/>}
     {showRegister && <Register  showLoginHandler = {showLoginHandler}/>}
