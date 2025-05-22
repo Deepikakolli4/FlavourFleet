@@ -124,7 +124,7 @@ const LandingPage = () => {
     {showRegister && <Register  showLoginHandler = {showLoginHandler}/>}
     {showFirm && showLogOut &&<AddFirm/>}
     {showProduct && showLogOut &&<AddProduct />}
-    {showWelcome && <Welcome/> }
+    {showWelcome && <Welcome showAllProductsHandler = {showAllProductsHandler}/> }
     {showAllProducts && showLogOut && <AllProducts />}
     </div>
    </section>
