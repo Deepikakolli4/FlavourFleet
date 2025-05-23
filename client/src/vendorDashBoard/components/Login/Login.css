@@ -133,6 +133,35 @@
   transform: none;
   box-shadow: none;
 }
+.passwordContainer {
+  position: relative;
+  width: 100%;
+}
+
+.passwordContainer input {
+  width: 100%;
+  padding: 10px 40px 10px 12px; /* Padding-right leaves room for the toggle */
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.showPassword {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #007bff;
+  user-select: none;
+}
+
+.showPassword:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
 
 .collection{
     display: flex;

@@ -20,86 +20,89 @@ const Login = ({ showWelcomeHandler }) => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setError("");
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
-  // Client-side validation
-  if (!validateEmail(email)) {
-    setError("Please enter a valid email address.");
-    setLoading(false);
-    return;
-  }
-
-  try {
-    // Login API call
-    const loginResponse = await fetch(`${API_URL}/vendor/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const loginData = await loginResponse.json();
-
-    if (!loginResponse.ok) {
-      throw new Error(
-        loginData.message ||
-          `Login failed: ${loginResponse.status} ${loginResponse.statusText}`
-      );
+    // Client-side validation
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address.");
+      setLoading(false);
+      return;
     }
 
-    // Store token and reset form
-    localStorage.setItem("loginToken", loginData.token);
-    setEmail("");
-    setPassword("");
-
-    // Check for vendorId
-    const vendorId = loginData.vendorId;
-    
-    // Fetch vendor details
     try {
-      const vendorResponse = await fetch(
-        `${API_URL}/vendor/vendorById/${vendorId}`
-      );
-       window.location.reload();
-      const vendorData = await vendorResponse.json();
-      console.log(vendorData);
+      // Login API call
+      const loginResponse = await fetch(`${API_URL}/vendor/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-      if (!vendorResponse.ok) {
+      const loginData = await loginResponse.json();
+
+      if (!loginResponse.ok) {
         throw new Error(
-          vendorData.message ||
-            `Failed to fetch vendor details: ${vendorResponse.status}`
+          loginData.message ||
+            `Login failed: ${loginResponse.status} ${loginResponse.statusText}`
         );
       }
 
-      // Extract firm details from vendor.firm[0]
-      const vendorFirm = vendorData?.vendor?.firm?.[0]; 
-      if (!vendorFirm || !vendorFirm._id || !vendorFirm.firmName) {
-        throw new Error("Vendor firm details not found.");
+      // Store token and reset form
+      localStorage.setItem("loginToken", loginData.token);
+      setEmail("");
+      setPassword("");
+
+      // Check for vendorId
+      const vendorId = loginData.vendorId;
+
+      // Fetch vendor details
+      try {
+        const vendorResponse = await fetch(
+          `${API_URL}/vendor/vendorById/${vendorId}`
+        );
+        window.location.reload();
+        const vendorData = await vendorResponse.json();
+        console.log(vendorData);
+
+        if (!vendorResponse.ok) {
+          throw new Error(
+            vendorData.message ||
+              `Failed to fetch vendor details: ${vendorResponse.status}`
+          );
+        }
+
+        // Extract firm details from vendor.firm[0]
+        const vendorFirm = vendorData?.vendor?.firm?.[0];
+        if (!vendorFirm || !vendorFirm._id || !vendorFirm.firmName) {
+          throw new Error("Vendor firm details not found.");
+        }
+
+        const vendorFirmId = vendorFirm._id;
+        const vendorFirmName = vendorFirm.firmName;
+
+        // Store firm details
+        localStorage.setItem("firmId", vendorFirmId);
+        localStorage.setItem("firmName", vendorFirmName);
+
+        // Trigger welcome handler
+        showWelcomeHandler();
+      } catch (vendorError) {
+        throw new Error(
+          `Error fetching vendor details: ${vendorError.message}`
+        );
       }
-
-      const vendorFirmId = vendorFirm._id; 
-      const vendorFirmName = vendorFirm.firmName;
-
-      // Store firm details
-      localStorage.setItem("firmId", vendorFirmId);
-      localStorage.setItem("firmName", vendorFirmName);
-
-      // Trigger welcome handler
-      showWelcomeHandler();
-    } catch (vendorError) {
-      throw new Error(`Error fetching vendor details: ${vendorError.message}`);
+    } catch (err) {
+      setError(
+        err.message ||
+          "An error occurred. Please check your network or try again."
+      );
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    setError(
-      err.message || "An error occurred. Please check your network or try again."
-    );
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <div className="loginSection">
@@ -120,18 +123,20 @@ const Login = ({ showWelcomeHandler }) => {
         />
 
         <label htmlFor="password">Password</label>
-        <input
-          type={showPassword ? "text" : "password"}
-          id="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter Password"
-          required
-        />
-        <span className="showPassword" onClick={handleShowPassword}>
-          {showPassword ? "Hide" : "Show"}
-        </span>
+        <div className="passwordContainer">
+          <input
+            type={showPassword ? "text" : "password"}
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter Password"
+            required
+          />
+          <span className="showPassword" onClick={handleShowPassword}>
+            {showPassword ? "Hide" : "Show"}
+          </span>
+        </div>
 
         {error && <p className="error">{error}</p>}
 
