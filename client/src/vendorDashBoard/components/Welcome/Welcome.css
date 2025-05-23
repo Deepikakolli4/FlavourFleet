@@ -81,13 +81,13 @@
   width: fit-content; 
   opacity: 0;
   animation: fadeInScale 1s ease forwards;
-  animation-delay: 0.8s;
+  animation-delay: 0.0s;
   transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .welcomeSection .action-btn:hover {
   background-color: green; 
-  transform: translateY(-2px) scale(1.05); /* Lift and slight scale */
+  transform: translateY(-2px) scale(1.05); 
   box-shadow: 0 2px 5px rgba(212, 160, 23, 0.3); /* Matches submit-btn hover */
   animation: pulse 0.5s ease infinite;
 }
