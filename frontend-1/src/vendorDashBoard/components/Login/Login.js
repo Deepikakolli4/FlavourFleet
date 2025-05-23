@@ -24,7 +24,6 @@ const Login = ({ showWelcomeHandler }) => {
     setLoading(true);
     setError("");
 
-    // Client-side validation
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
       setLoading(false);
@@ -32,7 +31,6 @@ const Login = ({ showWelcomeHandler }) => {
     }
 
     try {
-      // Login API call
       const loginResponse = await fetch(`${API_URL}/vendor/login`, {
         method: "POST",
         headers: {
@@ -50,22 +48,15 @@ const Login = ({ showWelcomeHandler }) => {
         );
       }
 
-      // Store token and reset form
       localStorage.setItem("loginToken", loginData.token);
+      const vendorId = loginData.vendorId;
+      localStorage.setItem("vendorId", vendorId);
       setEmail("");
       setPassword("");
 
-      // Check for vendorId
-      const vendorId = loginData.vendorId;
-
-      // Fetch vendor details
       try {
-        const vendorResponse = await fetch(
-          `${API_URL}/vendor/vendorById/${vendorId}`
-        );
-        window.location.reload();
+        const vendorResponse = await fetch(`${API_URL}/vendor/vendorById/${vendorId}`);
         const vendorData = await vendorResponse.json();
-        console.log(vendorData);
 
         if (!vendorResponse.ok) {
           throw new Error(
@@ -74,30 +65,26 @@ const Login = ({ showWelcomeHandler }) => {
           );
         }
 
-        // Extract firm details from vendor.firm[0]
-        const vendorFirm = vendorData?.vendor?.firm?.[0];
-        if (!vendorFirm || !vendorFirm._id || !vendorFirm.firmName) {
-          throw new Error("Vendor firm details not found.");
+        const firm = vendorData?.vendor?.firm?.[0];
+        if (firm?.firmName && firm?._id) {
+          localStorage.setItem("firmId", firm._id);
+          localStorage.setItem("firmName", firm.firmName);
+        } else {
+          // Firm not created yet, allow login to proceed
+          localStorage.setItem("firmId", "");
+          localStorage.setItem("firmName", "");
         }
 
-        const vendorFirmId = vendorFirm._id;
-        const vendorFirmName = vendorFirm.firmName;
-
-        // Store firm details
-        localStorage.setItem("firmId", vendorFirmId);
-        localStorage.setItem("firmName", vendorFirmName);
-
-        // Trigger welcome handler
         showWelcomeHandler();
-      } catch (vendorError) {
-        throw new Error(
-          `Error fetching vendor details: ${vendorError.message}`
-        );
+        setTimeout(() => {
+          window.location.reload();
+        }, 300);
+      } catch (vendorErr) {
+        throw new Error(`Error fetching vendor details: ${vendorErr.message}`);
       }
     } catch (err) {
       setError(
-        err.message ||
-          "An error occurred. Please check your network or try again."
+        err.message || "An error occurred. Please check your network or try again."
       );
     } finally {
       setLoading(false);

@@ -79,6 +79,7 @@ const AddFirm = () => {
       console.log(data);
       const firmId = data.firmId;
       localStorage.setItem("firmId", firmId);
+      localStorage.setItem("firmName",firmName);
 
       // Reset form
       setFirmName("");
