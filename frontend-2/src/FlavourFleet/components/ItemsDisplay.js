@@ -1,21 +1,24 @@
-import React,{useState} from 'react'
-import { itemData } from '../Pages/data'
-const ItemsDisplay = () => {
-    const [displayItem , setDisplayItem] = useState(itemData);
-  return (
-    <div className='itemSection'>
-         <div className=''>
-              <h4>Whats in your mind?</h4>
-         </div>
-       {displayItem.map((item)=>{
-          return(
-            <div className='itemsImage'>
-                <img src={item.item_image} alt="images" />
-            </div>
-          )
-       })}
-    </div>
-  )
-}
+import React, { useState } from 'react';
+import { itemData } from '../Pages/data';
 
-export default ItemsDisplay
+const ItemsDisplay = () => {
+  const [displayItem, setDisplayItem] = useState(itemData);
+
+  return (
+    <div>
+      <div className='title'>
+        <h4>What's in your mind?</h4>
+      </div>
+
+      <div className='itemsContainer'>
+        {displayItem.map((item) => (
+          <div className='itemsImage' key={item.id}>
+            <img src={item.item_image} alt="images" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ItemsDisplay;
