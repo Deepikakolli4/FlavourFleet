@@ -9,22 +9,13 @@ body {
 }
 
 /* Title Styling */
-.title {
+.title , h3 {
   text-align: center;
   color: black;
   font-size: 2rem;
   font-family: 'Jost', sans-serif;
   margin: 40px 0 20px 0;
   letter-spacing: 1px;
-}
-
-/* Individual Item Box */
-.itemsImage {
-  width: 350px;
-}
-
-.itemsImage img {
-  width: 200%;
 }
 
 /* Heading Style */
@@ -75,10 +66,20 @@ h2 {
   color: #333;
   transition: color 0.3s ease;
 }
+
+/* Individual Item Box */
+.itemsImage {
+  width: 250px;
+}
+
+.itemsImage img {
+  width: 100%;
+}
+
 .itemsContainer {
   display: flex;
   justify-content: center; 
-  gap: 50px; 
+  gap: 40px; 
   margin: 20px auto;
 }
 .user:hover {
@@ -106,4 +107,22 @@ h2 {
   border-radius: 8px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
               rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+/*chain section*/
+.chainSection{
+  display: flex;
+  overflow-x: scroll;
+  position: relative;
+  height: auto;
+}
+.vendorBox{
+ border-radius: 10px;
+}
+.vendorBox img{
+  width:350px;
+  height:220px;
+  border-radius: 10px;
+  flex: 0 0 auto;
+  margin-right: 30px;
+  object-fit: cover;
 }
