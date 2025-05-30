@@ -39,10 +39,14 @@ const FirmCollections = () => {
                   <div className='restaurantInfo'>
                     <ul>
                     <strong>
-                        <li className='restaurantName'>{item.firmName}</li>
-                    </strong>
-                     <li>{item.region}</li>
-                     <li>{item.area}</li>
+                       {item.firmName}
+                    </strong><br />
+                    <div className='firmArea'>
+                     {item.region.join(', ')}
+                     </div>
+                     <div className='firmArea'>
+                     {item.area}
+                     </div>
                     </ul>
                   </div>
                   </div>
